@@ -1,6 +1,7 @@
 # Misc-Scripts
 > Repo of miscellaneous Python scripts.
 
+```
 import streamlit as st
 
 def create_question(question, alt_question=None, options=None, input_type='text'):
@@ -234,3 +235,5 @@ endowment_bias_question_3_options = ['A. Consider investing more in similar item
                                       'B. Hold onto the collectibles, valuing their sentimental and historical significance.',
                                       'C. Evaluate the current market conditions and sell if it makes financial sense.']
 endowment_bias_question_3 = create_question('You have a collection of rare items that you\'ve accumulated over the years. The market for these items has been declining. What would be your decision?', options=endowment_bias_question_3_options)
+
+```
