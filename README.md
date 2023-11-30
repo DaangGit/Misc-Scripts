@@ -6,6 +6,52 @@
 
 ```
 import streamlit as st
+import os
+
+
+def sidebar():
+    with st.sidebar:
+        # st.markdown(
+            # "## How to use\n"
+            # "1. Enter your [OpenAI API key](https://platform.openai.com/account/api-keys) below\n"
+            # "2. Upload a pdf, docx, or txt file\n"
+            # "3. Ask a question about the document\n"
+        # )
+        # api_key_input = st.text_input(
+            # "OpenAI API Key",
+            # type="password",
+            # placeholder="Paste your OpenAI API key here",
+            # help="You can get your API key from https://platform.openai.com/account/api-keys.",
+            # value=os.environ.get("OPENAI_API_KEY", None) or st.session_state.get("OPENAI_API_KEY", ""),
+        # )
+
+        # st.session_state["OPENAI_API_KEY"] = api_key_input
+
+        # st.markdown("---")
+        
+        st.markdown("# About")
+        st.markdown(
+            """
+            Welcome to our cutting-edge Wealth Advisor powered by advanced AI technology. 
+            Seamlessly blending financial expertise with personalized insights, our tool revolutionizes wealth management. 
+            Through dynamic questionnaires, it delves into your financial aspirations, analyzing behavioral biases to craft a bespoke strategy.
+            """
+        )
+        st.markdown(
+        """
+        Powered by GPT, it comprehensively understands your unique profile, offering astute recommendations for optimal asset allocation. 
+        From risk tolerance to long-term goals, our Wealth Advisor is your digital companion on the path to financial prosperity, ensuring informed decisions aligned with your individual characteristics. 
+        Embrace the future of wealth management — intelligent, intuitive, and tailored just for you.
+        """
+        )
+        st.markdown("---")
+        
+        st.markdown("This tool is a work in progress.")
+        st.markdown("Made by: _Team Name_")
+        st.markdown("---")
+
+
+sidebar()
 
 
 def create_question(question, alt_question=None, options=None, input_type='text'):
@@ -25,7 +71,6 @@ def create_question(question, alt_question=None, options=None, input_type='text'
         else:
             answer = st.selectbox('', options, key=f'{question}')
     return answer
-
 
 
 # Title of the questionnaire
@@ -94,6 +139,9 @@ col5,col6 = st.columns(2)
 with col5:
     liquidity_needs = create_question('Do you have any liquidity requirements or emergency funds to be considered?', input_type='yesno')
 
+annual_withdrawal_percentage = None
+withdrawal_time_frame = None
+
 if liquidity_needs == 'Yes':
     with col6:
         annual_withdrawal_options = ['< 2%', '2% - 6%', '> 6%']
@@ -114,6 +162,20 @@ real_estate_investments = create_question('Would you consider allocating a porti
 municipal_bonds = create_question('Would you consider allocating a portion of your portfolio to tax-exempt Municipal bonds?', input_type='yesno')
 st.markdown("___")
 
+
+section_a = {
+'name': name, 'age': age, 'gender': gender, 'marital_status': marital_status, 
+'occupation': occupation, 'income_options': income_options, 'annual_income': annual_income, 
+'retirement_age': retirement_age, 'dependents': dependents,
+'investment_objective': investment_objective, 'investment_time_horizon': investment_time_horizon,
+'short_term_goals': short_term_goals, 'long_term_goals': long_term_goals,
+'liquidity_needs': liquidity_needs, 'annual_withdrawal_percentage': annual_withdrawal_percentage, 'withdrawal_time_frame': withdrawal_time_frame,
+'international_investments': international_investments, 'real_estate_investments': real_estate_investments, 'municipal_bonds': municipal_bonds
+}
+
+# # # ____________________________________________________________________________________________________
+# # # ____________________________________________________________________________________________________
+# # # ____________________________________________________________________________________________________
 
 st.title('Questionnaire - Section B')
 
@@ -142,16 +204,27 @@ question_4_options = ['A. 100% in Investment A and 0% in Investment B',
                       'D. 20% in Investment A and 80% in Investment B',
                       'E. 0% in Investment A and 100% in Investment B']
 question_4 = create_question('4. Consider two different investments:\nInvestment A, which provides an average annual return of 5% with a minimal risk of loss of value\nInvestment B, which provides an average annual return of 10% and a potential loss of 25% or more in any year.\nHow would you divide your investment dollars?', options=question_4_options)
+
 # st.image('image.jpg', caption='', use_column_width=True)
+
 question_5_options = ['A. Portfolio A',
                       'B. Portfolio B',
                       'C. Portfolio C',
                       'D. Portfolio D',
                       'E. Portfolio E']
 question_5 = create_question('5. If you could choose only one of the five hypothetical portfolios characterized below, which would you select?', options=question_5_options)
+
 # st.image('image.jpg', caption='', use_column_width=True)
 st.markdown("___")
 
+
+section_b = {
+'question_1': question_1, 'question_2': question_2, 'question_3': question_3, 'question_4': question_4, 'question_5': question_5
+}
+
+# # # ____________________________________________________________________________________________________
+# # # ____________________________________________________________________________________________________
+# # # ____________________________________________________________________________________________________
 
 st.title('Questionnaire - Section C')
 
@@ -258,4 +331,16 @@ endowment_bias_question_3_options = ['A. Consider investing more in similar item
                                       'C. Evaluate the current market conditions and sell if it makes financial sense.']
 endowment_bias_question_3 = create_question('You have a collection of rare items that you\'ve accumulated over the years. The market for these items has been declining. What would be your decision?', options=endowment_bias_question_3_options)
 st.markdown("___")
+
+section_c = {
+'overconfidence_question_1': overconfidence_question_1, 'overconfidence_question_2': overconfidence_question_2, 'overconfidence_question_3': overconfidence_question_3,
+'loss_aversion_question_1': loss_aversion_question_1, 'loss_aversion_question_2': loss_aversion_question_2, 'loss_aversion_question_3': loss_aversion_question_3,
+'confirmation_bias_question_1': confirmation_bias_question_1, 'confirmation_bias_question_2': confirmation_bias_question_2, 'confirmation_bias_question_3': confirmation_bias_question_3,
+'gamblers_fallacy_question_1': gamblers_fallacy_question_1, 'gamblers_fallacy_question_2': gamblers_fallacy_question_2, 'gamblers_fallacy_question_3': gamblers_fallacy_question_3,
+'status_quo_bias_question_1': status_quo_bias_question_1, 'status_quo_bias_question_2': status_quo_bias_question_2, 'status_quo_bias_question_3': status_quo_bias_question_3,
+'endowment_bias_question_1': endowment_bias_question_1, 'endowment_bias_question_2': endowment_bias_question_2, 'endowment_bias_question_3': endowment_bias_question_3
+}
+
+# section_a, section_b, section_c are the dictionaries with the answer variables. 
+# They may be text, number, boolean, list or None type based on the questions.
 ```
